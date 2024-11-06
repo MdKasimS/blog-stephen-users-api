@@ -22,7 +22,7 @@ app.use((req, res, next)=>{
 });
 
 app.use((req, res, next)=>{
-    fs.appendFile('log.txt', `${Date.now()}: ${req.method}: ${req.path}`, (err, data)=>{
+    fs.appendFile('log.txt', `${Date.now()}: ${req.method}: ${req.path}\n`, (err, data)=>{
         next();
     });
 });
