@@ -7,6 +7,7 @@ const users = require('./MOCK_DATA.json');
 
 const PORT = 8001
 
+app.set("view engine","ejs");
 // connectToMongoDB("mongodb://localhost:27017/blog-stephen-grider").then(()=>
 //     console.log("MongoDB Connected")
 // );
@@ -14,6 +15,21 @@ const PORT = 8001
 //Middlewares In Express
 app.use(express.urlencoded({extended:false}));
 
+app.use((req, res, next)=>{
+    console.log("Hi! this is middleware 1");
+    next();
+    // res.send("This is Middelware 1 terminating request.")
+});
+
+app.use((req, res, next)=>{
+    fs.appendFile('log.txt', `${Date.now()}: ${req.method}: ${req.path}`);
+});
+
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+
+const userRoute = require('./routers/routes');
+// const staticRoute = requier('')
 
 
 // ---- Routers Start From Here -----
@@ -33,7 +49,7 @@ app.get('/users', (req, res)=>{
     res.send(html);
 });
 
-//Getting user for sepecified id
+//Handling user of sepecified id
 //------------------------------------------------------
 
 //Combined all types of requests for similar routes
@@ -53,6 +69,7 @@ app.route("/api/users/:id")
         return res.json({status:"Task is pending"});
     });
 
+    //Route for creating user in storage
 app.post('/api/users/',(req, res)=>{
     console.log("Createing new user");  
 
@@ -65,9 +82,6 @@ app.post('/api/users/',(req, res)=>{
 
     // console.log(users);
 });
-
-//     return res.json({status:"Task is pending"});
-// });
 
 // app.patch('/api/users/:id',(req, res)=>{
 
@@ -86,13 +100,6 @@ app.post('/api/users/',(req, res)=>{
 
 
 
-app.set("view engine","ejs");
-
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-
-const userRoute = require('./routers/routes');
-// const staticRoute = requier('')
 
 app.use("/user", userRoute);
 
