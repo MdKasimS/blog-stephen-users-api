@@ -8,9 +8,10 @@ const users = require('./MOCK_DATA.json');
 const PORT = 8001
 
 app.set("view engine","ejs");
-// connectToMongoDB("mongodb://localhost:27017/blog-stephen-grider").then(()=>
-//     console.log("MongoDB Connected")
-// );
+
+connectToMongoDB("mongodb://localhost:27017/blog-stephen-grider")
+.then(()=> console.log("MongoDB Connected"))
+.catch((err)=> console.log("Oops! Connection Failed...", err));
 
 //Middlewares In Express
 app.use(express.urlencoded({extended:false}));
@@ -108,3 +109,10 @@ app.use("/user", userRoute);
 app.listen(PORT, ()=>{
     console.log("Listening on Port 8004....");
 });
+
+
+function connectToMongoDB(mongoDBUrl)
+{
+    const mongoose = require('mongoose');
+    return mongoose.connect(mongoDBUrl);
+}
