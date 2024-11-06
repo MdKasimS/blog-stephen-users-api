@@ -1,18 +1,23 @@
+const fs = require('fs');
+
 const express = require('express')
-
-
-const users = require('./MOCK_DATA.json');
-
 const app = express()
 
-const fs = require('fs');
+const users = require('./MOCK_DATA.json');
 
 const PORT = 8001
 
 // connectToMongoDB("mongodb://localhost:27017/blog-stephen-grider").then(()=>
 //     console.log("MongoDB Connected")
 // );
+
+//Middlewares In Express
 app.use(express.urlencoded({extended:false}));
+
+
+
+// ---- Routers Start From Here -----
+
 
 //Hybrid Server for getting all users
 app.get('/api/users', (req, res)=>{
