@@ -22,7 +22,9 @@ app.use((req, res, next)=>{
 });
 
 app.use((req, res, next)=>{
-    fs.appendFile('log.txt', `${Date.now()}: ${req.method}: ${req.path}`);
+    fs.appendFile('log.txt', `${Date.now()}: ${req.method}: ${req.path}`, (err, data)=>{
+        next();
+    });
 });
 
 app.use(express.json());
