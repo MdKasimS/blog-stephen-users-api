@@ -3,7 +3,9 @@ const fs = require('fs');
 const express = require('express')
 const app = express()
 
-const users = require('./MOCK_DATA.json');
+delete require.cache[require.resolve('./models/user')];
+// const users = require('./MOCK_DATA.json');
+const User = require('./models/user');
 
 const PORT = 8001
 
@@ -40,14 +42,14 @@ const userRoute = require('./routers/routes');
 
 //Hybrid Server for getting all users
 app.get('/api/users', (req, res)=>{
-    res.json(users);
+    // res.json(users);
 });
 
 app.get('/users', (req, res)=>{
     
-    const html = `<ul>
-    ${users.map((user)=>`<li>${user.first_name}</li>`).join("")}
-    </ul>`;
+    // const html = `<ul>
+    // ${users.map((user)=>`<li>${user.first_name}</li>`).join("")}
+    // </ul>`;
     
     res.send(html);
 });
@@ -73,15 +75,39 @@ app.route("/api/users/:id")
     });
 
     //Route for creating user in storage
-app.post('/api/users/',(req, res)=>{
-    console.log("Createing new user");  
-
+app.post('/api/users/',async (req, res)=>{
+    
     const body = req.body
-    users.push({...body, id: users.length +1});
-
-    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err, data)=>{
-        return res.json({status: "success", id: `${users.length}`});
+    console.log(`I was called`)
+    if(
+        !body||
+        !body.first_name||
+        !body.last_name||
+        !body.gender||
+        !body.email||
+        !body.job_type
+        // !body.password
+    ){
+        return res.status(400).json({msg:"All fields are required..."});
+    }
+    
+    let result = await User.create({
+        first_name: body.first_name,
+        last_name: body.last_name,
+        gender: body.gender,
+        email: body.email,
+        job_type: body.job_type
+        // password: body.password
+        
     });
+    console.log(result);  
+    return res.status(201).json({msg:"success"});
+    
+    // Now shifting fromhard coding to database usage
+    // users.push({...body, id: users.length +1});
+    // fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err, data)=>{
+    //     return res.json({status: "success", id: `${users.length}`});
+    // });
 
     // console.log(users);
 });
@@ -104,7 +130,7 @@ app.post('/api/users/',(req, res)=>{
 
 
 
-app.use("/user", userRoute);
+// app.use("/user", userRoute);
 
 app.listen(PORT, ()=>{
     console.log("Listening on Port 8004....");
