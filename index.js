@@ -40,13 +40,14 @@ const userRoute = require('./routers/routes');
 // ---- Routers Start From Here -----
 
 //Hybrid Server for getting all users
-app.get('/api/users', (req, res)=>{
+app.get('/api/users', async (req, res)=>{
 
-    res.setHeader("X-MyName","Kasim Sache")
-    res.json(users);
+    // res.setHeader("X-MyName","Kasim Sache")
+    const allUsers = await User.find({});
+    res.json(allUsers);
 });
 
-app.get('/users/', async (req, res)=>{
+app.get('/users', async (req, res)=>{
 
     const allUsers = await User.find({});
     const html = `<ul>
@@ -62,19 +63,34 @@ app.get('/users/', async (req, res)=>{
 
 //Combined all types of requests for similar routes
 app.route("/api/users/:id")
-    .get((req, res)=>{
-        const id = Number(req.params.id);
-        const user = users.find((user)=>user.id===id);
+    .get(async (req, res)=>{
+        // const id = Number(req.params.id);
+
+        const user = await User.findById(req.params.id);
+        if(!user)
+        {
+            return res.status(404).json({error:"user not found"})
+        }
+
         return res.json(user);
     })
     .put((req, res)=>{
         return res.json({status:"Task is pending"});
     })
-    .patch((req, res)=>{
-        return res.json({status:"Task is pending"});
+    .patch(async (req, res)=>{
+        
+        // old user data is returned. even timing setting isn;t giving corrct result
+        // const user = await User.findByIdAndUpdate(req.params.id, {password:"#Sneha@Sunny"})
+ 
+        const user = await User.findByIdAndUpdate(req.params.id, {password:"#Sneha@Sunny"})
+        // await setTimeout(()=>{}, 2000);
+        console.log(user)    
+        return res.json(user);
     })
-    .delete((req, res)=>{
-        return res.json({status:"Task is pending"});
+    .delete(async (req, res)=>{
+        
+        await User.findByIdAndDelete(req.params.id);
+        return res.json({status:`Deleted User ${req.params.id}`});
     });
 
     //Route for creating user in storage
@@ -125,8 +141,6 @@ app.post('/api/users/',async (req, res)=>{
 
 //     return res.json({status:"Task is pending"});
 // });
-
-
 
 
 // app.use("/user", userRoute);
