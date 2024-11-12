@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 
 delete require.cache[require.resolve('./models/user')];
-// const users = require('./MOCK_DATA.json');
+const users = require('./MOCK_DATA.json');
 const User = require('./models/user');
 
 const PORT = 8001
@@ -39,17 +39,20 @@ const userRoute = require('./routers/routes');
 
 // ---- Routers Start From Here -----
 
-
 //Hybrid Server for getting all users
 app.get('/api/users', (req, res)=>{
-    // res.json(users);
+
+    res.setHeader("X-MyName","Kasim Sache")
+    res.json(users);
 });
 
-app.get('/users', (req, res)=>{
-    
-    // const html = `<ul>
-    // ${users.map((user)=>`<li>${user.first_name}</li>`).join("")}
-    // </ul>`;
+app.get('/users/', async (req, res)=>{
+
+    const allUsers = await User.find({});
+    const html = `<ul>
+    ${allUsers.map((user)=>`<li>${user.first_name} - ${user.email}</li>`)
+    .join("")}
+    </ul>`;
     
     res.send(html);
 });
@@ -79,15 +82,9 @@ app.post('/api/users/',async (req, res)=>{
     
     const body = req.body
     console.log(`I was called`)
-    if(
-        !body||
-        !body.first_name||
-        !body.last_name||
-        !body.gender||
-        !body.email||
-        !body.job_type
-        // !body.password
-    ){
+    
+    if(!body|| !body.first_name|| !body.last_name|| !body.gender|| !body.email|| !body.job_type) //!body.password
+    {
         return res.status(400).json({msg:"All fields are required..."});
     }
     
@@ -96,10 +93,12 @@ app.post('/api/users/',async (req, res)=>{
         last_name: body.last_name,
         gender: body.gender,
         email: body.email,
-        job_type: body.job_type
-        // password: body.password
-        
+        job_type: body.job_type,
+        password: body.password
     });
+
+    console.log(User.collection)
+
     console.log(result);  
     return res.status(201).json({msg:"success"});
     
