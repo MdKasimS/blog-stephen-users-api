@@ -9,7 +9,9 @@ const router = express.Router();
 
 //Handling user of sepecified id
 
-router.get("/", handleGetAllUsers);
+router.route()
+      .get("/", handleGetAllUsers)
+      .post('/', handleUserSignup);
 
 //Combined route - /api/users/:id
 router
@@ -21,6 +23,5 @@ router
   .patch(handleUpdateUserById)
   .delete(handleDeleteUserById);
 
-router.post('/', handleUserSignup);
 
 module.exports = router;
