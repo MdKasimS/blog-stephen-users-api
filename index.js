@@ -20,7 +20,6 @@ connectMongoDb("mongodb://localhost:27017/blog-stephen-grider")
 app.use((req, res, next)=>{
     console.log("Hi! this is middleware 1");
     next();
-    // res.send("This is Middelware 1 terminating request.")
 });
 
 app.use(express.json());
