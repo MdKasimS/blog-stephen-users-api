@@ -1,5 +1,9 @@
 const express = require("express");
-const { handleUserSignup, handleGetAllUsers, handleGetUserById, handleDeleteUserById, handleUpdateUserById } = require("../controllers/user");
+const { handleUserSignup, 
+        handleGetAllUsers, 
+        handleGetUserById, 
+        handleDeleteUserById, 
+        handleUpdateUserById } = require("../controllers/user");
 
 const router = express.Router();
 
