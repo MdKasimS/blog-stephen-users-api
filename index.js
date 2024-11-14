@@ -6,8 +6,6 @@ const userRouter = require('./routers/user');
 const express = require('express')
 const app = express()
 
-// delete require.cache[require.resolve('./models/user')];
-
 const PORT = 8001
 
 app.set("view engine","ejs");
