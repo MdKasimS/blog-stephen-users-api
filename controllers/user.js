@@ -45,7 +45,7 @@ async function handleUserSignup(req, res) {
   });
 
   console.log(result);
-  return res.status(201).json({ msg: "success" });
+  return res.status(201).json({ msg: `success ${result.id}` });
 }
 
 async function handleUpdateUserById(req, res) {
@@ -53,8 +53,8 @@ async function handleUpdateUserById(req, res) {
   // const user = await User.findByIdAndUpdate(req.params.id, {password:"#Sneha@Sunny"})
 
   const user = await User.findByIdAndUpdate(req.params.id, {
-    password: "#Sneha@Sunny",
-    job_type: "Software Engineer",
+    password: "#MechanicalDilSe",
+    job_type: "Mechanical Engineer",
   });
   // await setTimeout(()=>{}, 2000);
   console.log(user);
