@@ -9,9 +9,9 @@ const router = express.Router();
 
 //Handling user of sepecified id
 
-router.route()
-      .get("/", handleGetAllUsers)
-      .post('/', handleUserSignup);
+router.route('/')
+      .get(handleGetAllUsers)
+      .post( handleUserSignup);
 
 //Combined route - /api/users/:id
 router
