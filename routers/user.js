@@ -23,6 +23,6 @@ router
   .patch(handleUpdateUserById)
   .delete(handleDeleteUserById);
 
-router.post("/api/login", handleUserLogin);
+router.get("/api/login", handleUserLogin);
 
 module.exports = router;
