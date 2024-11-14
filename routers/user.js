@@ -7,8 +7,7 @@ const { handleUserSignup,
 
 const router = express.Router();
 
-//Handling user of sepecified id
-
+//Combined route - /api/users
 router.route('/')
       .get(handleGetAllUsers)
       .post( handleUserSignup);
