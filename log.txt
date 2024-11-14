@@ -70,3 +70,6 @@
 1731432715816: ::ffff:127.0.0.1: PATCH: /api/users/672ce1f00ac4d3e06b4efc81
 1731432740610: ::ffff:127.0.0.1: DELETE: /api/users/672ce1f00ac4d3e06b4efc81
 1731432809600: ::ffff:127.0.0.1: DELETE: /api/users/673372fba6609e50f49c1bef
+1731593157085: ::ffff:127.0.0.1: PATCH: /api/users/673372fba6609e50f49c1bef
+1731593189436: ::ffff:127.0.0.1: PATCH: /api/users/673376ec89a5611d6d70cbe4
+1731593297851: ::ffff:127.0.0.1: PATCH: /api/users/673376ec89a5611d6d70cbe4
