@@ -97,7 +97,7 @@ router
 //   // console.log(users);
 // });
 
-app.post('/', handleUserSignup)
+router.post('/', handleUserSignup)
 
 // app.patch('/api/users/:id',(req, res)=>{
 

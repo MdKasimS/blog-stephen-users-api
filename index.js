@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(logReqRes('log.txt'))
 
-app.use("/user", userRouter);
+app.use("/api/user", userRouter);
 
 app.listen(PORT, ()=>{
     console.log("Listening on Port 8004....");
