@@ -2,6 +2,7 @@
 const {connectMongoDb} = require('./connection') 
 const {logReqRes} = require('./middlewares')
 const userRouter = require('./routers/user');
+const staticRouter = require('./routers/staticRouter')
 
 const express = require('express')
 const app = express()
@@ -25,6 +26,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(logReqRes('log.txt'))
 
 app.use("/api/users", userRouter);
+app.use("/api/login", staticRouter);
 
 app.listen(PORT, ()=>{
     console.log("Listening on Port 8004....");

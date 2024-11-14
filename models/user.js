@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    contact_number:{
+        type : String,
+        required: false,
+        unique: true
+    }
 }, { timestamps: true});  
 
 const User = mongoose.model("user", userSchema);

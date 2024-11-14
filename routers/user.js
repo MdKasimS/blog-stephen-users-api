@@ -3,14 +3,15 @@ const { handleUserSignup,
         handleGetAllUsers, 
         handleGetUserById, 
         handleDeleteUserById, 
-        handleUpdateUserById } = require("../controllers/user");
+        handleUpdateUserById, 
+        handleUserLogin} = require("../controllers/user");
 
 const router = express.Router();
 
 //Combined route - /api/users
 router.route('/')
       .get(handleGetAllUsers)
-      .post( handleUserSignup);
+      .post(handleUserSignup);
 
 //Combined route - /api/users/:id
 router
@@ -22,5 +23,6 @@ router
   .patch(handleUpdateUserById)
   .delete(handleDeleteUserById);
 
+router.post("/api/login", handleUserLogin);
 
 module.exports = router;

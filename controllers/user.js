@@ -30,7 +30,8 @@ async function handleUserSignup(req, res) {
     !body.gender ||
     !body.email ||
     !body.job_type ||
-    !body.password
+    !body.password ||
+    !body.contact_number
   ) {
     return res.status(400).json({ msg: "All fields are required..." });
   }
@@ -42,6 +43,7 @@ async function handleUserSignup(req, res) {
     email: body.email,
     job_type: body.job_type,
     password: body.password,
+    contact_number: body.contact_number,
   });
 
   console.log(result);
@@ -61,10 +63,20 @@ async function handleUpdateUserById(req, res) {
   return res.json({ msg: "User Profile Updated Successfully!" });
 }
 
+async function handleUserLogin(req, res) {
+    const {email,password} = req.body;
+    const user = await User.findOne({email, password});
+    if (!user) {
+        return res.status(404).json({ error: "user not found" });
+    }
+    return res.json(user);
+}
+
 module.exports = {
   handleUserSignup,
   handleGetAllUsers,
   handleGetUserById,
   handleDeleteUserById,
   handleUpdateUserById,
+  handleUserLogin,
 };
