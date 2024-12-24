@@ -5,5 +5,4 @@ const router = express.Router();
 
 router.get("/api/login", handleUserLogin);
 
-
 module.exports = router;

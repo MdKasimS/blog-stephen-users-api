@@ -1,6 +1,6 @@
 
 const {connectMongoDb} = require('./connection') 
-const {logReqRes} = require('./middlewares')
+const {logReqRes} = require('./middlewares/index')
 const userRouter = require('./routers/user');
 const staticRouter = require('./routers/staticRouter')
 
@@ -56,8 +56,11 @@ app.use(express.urlencoded({extended: false}));
 /*------------------------------------------------------------------------------------------
 This function will be executed for every incoming request.
 It is responsible for logging requests and responses to a file named log.txt.
+In Express.js, middleware functions have access to the req (request) and res (response) objects, 
+and they must be registered using app.use or within a specific route.
 ------------------------------------------------------------------------------------------*/
-app.use(logReqRes('log.txt'))
+app.use(logReqRes('log.txt'));
+
 
 /*------------------------------------------------------------------------------------------
 This method sets up middleware to handle routes that start with /api/users in your Express.jsapplication.
@@ -65,7 +68,6 @@ This method sets up middleware to handle routes that start with /api/users in yo
 userRouter: This is an instance of an Express Router. The router is used to define multiple routes that share the base path /api/users.
 ------------------------------------------------------------------------------------------*/
 app.use("/api/users", userRouter);
-
 
 app.use("/api/login", staticRouter);
 

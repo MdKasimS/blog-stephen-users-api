@@ -1,10 +1,3 @@
-1735042924694: ::1: POST: /api/users/ :undefined
-1735043021686: ::1: POST: /api/users/ :undefined
-1735043065696: ::1: POST: /api/users/ :undefined
-1735043154582: ::1: POST: /api/users/ :undefined
-1735043201616: ::1: POST: /api/users/ :undefined
-1735043248209: ::1: POST: /api/users/ :undefined
-1735043358577: ::1: POST: /api/users/ :undefined
-1735043457153: ::1: POST: /api/users/ :undefined
-1735043576459: ::1: POST: /api/users/: undefined;
-1735043769136: ::1: POST: /api/users/: undefined;
+1735061131606: User already exists:
+1735061158991: User already exists:
+1735061186362: User already exists:
