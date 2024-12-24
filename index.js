@@ -12,8 +12,8 @@ const PORT = 8001
 app.set("view engine","ejs");
 
 connectMongoDb("mongodb://localhost:27017/blog-stephen-grider")
-.then(()=> console.log("MongoDB Connected"))
-.catch((err)=> console.log("Oops! Connection Failed...", err));
+        .then(()=> console.log("MongoDB Connected"))
+        .catch((err)=> console.log("Oops! Connection Failed...", err));
 
 //Middlewares
 app.use((req, res, next)=>{
