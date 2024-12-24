@@ -29,6 +29,6 @@ router
   .patch(handleUpdateUserById)
   .delete(handleDeleteUserById);
 
-router.get("/api/login", handleUserLogin);
+// router.get("/api/login", handleUserLogin);
 
 module.exports = router;

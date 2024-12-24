@@ -3,6 +3,7 @@ const {handleUserLogin} = require('../controllers/user');
 
 const router = express.Router();
 
-router.get("/api/login", handleUserLogin);
+router.route("/")
+      .get(handleUserLogin);
 
 module.exports = router;
