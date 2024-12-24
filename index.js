@@ -7,7 +7,7 @@ const staticRouter = require('./routers/staticRouter')
 const express = require('express')
 const app = express()
 
-const PORT = 8001
+const PORT = 8004
 
 app.set("view engine","ejs");
 
