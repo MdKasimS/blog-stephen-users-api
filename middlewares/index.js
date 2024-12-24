@@ -4,7 +4,7 @@ function logReqRes(logFileName)
 {
     return (req, res, next)=>{
         fs.appendFile(
-            logFileName, `${Date.now()}: ${req.ip}: ${req.method}: ${req.path}\n`, 
+            logFileName, `${new Date(Date.now())}: ${req.ip}: ${req.method}: ${req.path}\n`, 
             (err, data)=>{
                 next();
             });
