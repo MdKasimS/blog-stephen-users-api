@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const Credential = require("../models/credential");
+const {logInErrors} = require("../middlewares/logger")
 
 async function handleGetAllUsers(req, res) {
   const allUsers = await User.find({});
@@ -21,7 +23,7 @@ async function handleDeleteUserById(req, res) {
 
 async function handleUserSignup(req, res) {
   const body = req.body;
-  console.log(`I was called`);
+  console.log(`User Signup Handler Invoked...`);
 
   if (
     !body ||
@@ -36,7 +38,22 @@ async function handleUserSignup(req, res) {
     return res.status(400).json({ msg: "All fields are required..." });
   }
 
-  let result = await User.create({
+  try{
+
+    let userExist = await User.findOne({ $or: [{ email: body.email }, { contact_number: body.contact_numbert }] });
+    if (userExist!=null) 
+      { 
+        throw new Error('User already exists'); 
+      }
+    }
+    catch (error) 
+    { 
+      console.error('Error checking user:', error.message); 
+      logInErrors(error.message);
+      return res.status(400).json({ msg: error.message}); // Error occurred
+    }
+  
+   let result = await User.create({
     first_name: body.first_name,
     last_name: body.last_name,
     gender: body.gender,
@@ -46,13 +63,16 @@ async function handleUserSignup(req, res) {
     contact_number: body.contact_number,
   });
 
+  result = await Credential.create({
+    password: body.password,
+    user_id : result.id
+  });
+  
   console.log(result);
   return res.status(201).json({ msg: `success ${result.id}` });
 }
 
 async function handleUpdateUserById(req, res) {
-  // old user data is returned. even timing setting isn;t giving corrct result
-  // const user = await User.findByIdAndUpdate(req.params.id, {password:"#Sneha@Sunny"})
 
   const user = await User.findByIdAndUpdate(req.params.id, {
     password: "#MechanicalDilSe",
