@@ -30,10 +30,10 @@ connectMongoDb("mongodb://localhost:27017/blog-stephen-grider")
 Middleware functions are functions that have access to the request object (req), 
 the response object (res), and the next middleware function in the application’s request-response cycle. 
 -----------------------------------------------------------------------------------*/
-app.use((req, res, next)=>{
-    console.log("Hi! this is middleware 1");
-    next();
-});
+// app.use((req, res, next)=>{
+//     console.log("Hi! this is middleware 1");
+//     next();
+// });  ------------------------>>>> You can check call of middleware for evry request by uncommenting this code line
 
 /*-----------------------------------------------------------------------------------
 This function will be executed for every incoming request.

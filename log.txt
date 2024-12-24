@@ -143,3 +143,4 @@
 1735031089318: ::1: GET: /api/users/676a74ac3f9e3bb2c82d23a7
 1735031106475: ::1: PUT: /api/users/676a74ac3f9e3bb2c82d23a7
 1735031126213: ::1: GET: /api/users/
+1735031260074: ::1: POST: /api/users/
