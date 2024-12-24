@@ -78,7 +78,6 @@ async function handleUpdateUserById(req, res) {
     password: "#MechanicalDilSe",
     job_type: "Mechanical Engineer",
   });
-  // await setTimeout(()=>{}, 2000);
   console.log(user);
   return res.json({ msg: "User Profile Updated Successfully!" });
 }
