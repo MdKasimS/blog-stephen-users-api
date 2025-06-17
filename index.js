@@ -6,7 +6,7 @@ const staticRouter = require('./routers/staticRouter')
 const express = require('express')
 const app = express()
 
-const PORT = 9001;
+const PORT = 8000;
 
 
 app.set("view engine","ejs");
@@ -19,14 +19,15 @@ app.use(express.json());
 
 app.use(express.urlencoded({extended: false}));
 
-app.use(logReqRes('log.txt'));
 
 app.use("/api/users", userRouter);
 
 app.use("/api/login", staticRouter);
 
+app.use(logReqRes('log.txt'));
+
 app.listen(PORT, ()=>{
-    console.log("Listening on Port 9001....");
+   console.log("Listening on Port 8000....");
 });
 
 
@@ -47,11 +48,11 @@ The EJS template (index.ejs) uses the <%= %> syntax to embed JavaScript values i
 Fo eg:- res.render('index', { title: 'Home Page', message: 'Welcome to my website!' });
 code line renders the index.ejs template and passes data (title and message) to the template.
 -----------------------------------------------------------------------------------*/
-app.set("view engine","ejs");
+// app.set("view engine","ejs");
 
-connectMongoDb("mongodb://localhost:27017/blog-stephen-grider")
-        .then(()=> console.log("MongoDB Connected"))
-        .catch((err)=> console.log("Oops! Connection Failed...", err));
+// connectMongoDb("mongodb://localhost:27017/blog-stephen-grider")
+//         .then(()=> console.log("MongoDB Connected"))
+//         .catch((err)=> console.log("Oops! Connection Failed...", err));
 
 //Middlewares
 /*-----------------------------------------------------------------------------------
@@ -71,7 +72,7 @@ Adds a middleware function to the Express.jsapplication's request handling pipel
 It is based on the body-parser module, which is now included in Express.js.
 It parses the incoming request bodies that contain JSON payloads and makes them accessible under the req.body property. 
 -----------------------------------------------------------------------------------*/
-app.use(express.json());
+// app.use(express.json());
 
 /*------------------------------------------------------------------------------------------
 This function will be executed for every incoming request.
@@ -80,7 +81,7 @@ Adds a middleware function to the Express.jsapplication's request handling pipel
 It parses incoming request bodies that are URL-encoded, typically used for form submissions. 
 It makes the parsed data available under the req.body property.
 ------------------------------------------------------------------------------------------*/
-app.use(express.urlencoded({extended: false}));
+// app.use(express.urlencoded({extended: false}));
 
 /*------------------------------------------------------------------------------------------
 This function will be executed for every incoming request.
@@ -88,7 +89,7 @@ It is responsible for logging requests and responses to a file named log.txt.
 In Express.js, middleware functions have access to the req (request) and res (response) objects, 
 and they must be registered using app.use or within a specific route.
 ------------------------------------------------------------------------------------------*/
-app.use(logReqRes('log.txt'));
+// app.use(logReqRes('log.txt'));
 
 
 /*------------------------------------------------------------------------------------------
@@ -96,9 +97,9 @@ This method sets up middleware to handle routes that start with /api/users in yo
 "/api/users": This is the base path for the routes. Any request that starts with /api/users will be handled by the middleware or router specified.
 userRouter: This is an instance of an Express Router. The router is used to define multiple routes that share the base path /api/users.
 ------------------------------------------------------------------------------------------*/
-app.use("/api/users", userRouter);
+// app.use("/api/users", userRouter);
 
-app.use("/api/login", staticRouter);
+// app.use("/api/login", staticRouter);
 
 /*------------------------------------------------------------------------------------------
 The app.listen(PORT, () => { console.log("Listening on Port 8004...."); }); method in Express.jsis responsible for starting the server
@@ -108,8 +109,8 @@ Express.js is built on top of Node.js, so it leverages the built-in HTTP module 
 The callback function provided as the second argument to app.listen is executed once the server starts successfully. 
 In your example, the callback function logs a message to the console indicating that the server is listening on port 8004.
 ------------------------------------------------------------------------------------------*/
-app.listen(PORT, ()=>{
-    console.log("Listening on Port 8004....");
-});
+// app.listen(PORT, ()=>{
+//     console.log("Listening on Port 8000....");
+// });
 
 

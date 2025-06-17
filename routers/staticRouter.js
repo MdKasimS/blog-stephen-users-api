@@ -9,6 +9,6 @@ the req and res objects to each route handler and middleware function.
 const router = express.Router();
 
 router.route("/")
-      .get(handleUserLogin);
+      .post(handleUserLogin);
 
 module.exports = router;

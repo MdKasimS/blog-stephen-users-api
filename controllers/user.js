@@ -86,8 +86,10 @@ async function handleUserLogin(req, res) {
     const {email,password} = req.body;
     const user = await User.findOne({email, password});
     if (!user) {
+        console.log("User not found");
         return res.status(404).json({ error: "user not found" });
     }
+    console.log("User found:", user);
     return res.json(user);
 }
 
