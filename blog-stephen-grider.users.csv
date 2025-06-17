@@ -1,0 +1,7 @@
+_id,first_name,last_name,gender,email,job_type,password,contact_number,createdAt,updatedAt,__v
+676a74ac3f9e3bb2c82d23a6,Kasim,Sache,Male,kasim.sache.dev@gmail.com,Software Developer Engineer,check pwd,9822898488,2024-12-24T08:45:32.915Z,2024-12-24T08:45:32.915Z,0
+676a79dc5d1d646242862a3b,Kasim,Sache,Male,kasim.sache@gmail.com,Software Developer Engineer,check pwd,9822898489,2024-12-24T09:07:40.086Z,2024-12-24T09:07:40.086Z,0
+676aa11056b663c247a9c238,Kasim,Sache,Male,kasim.sache.admin@gmail.com,Software Developer Engineer,check pwd,9822898490,2024-12-24T11:54:56.891Z,2024-12-24T11:54:56.891Z,0
+676aea300d5f80e16a3bd2d5,Kasim,Sache,Male,kasim.admin@gmail.com,Software Developer Engineer,check pwd,9822898492,2024-12-24T17:06:56.407Z,2024-12-24T17:06:56.407Z,0
+676aeb136783ab0a3e07a059,Kasim,Sache,Male,kasim_admin@gmail.com,Software Developer Engineer,check pwd,9822898493,2024-12-24T17:10:43.753Z,2024-12-24T17:10:43.753Z,0
+676aed980134406ce0012936,Kasim,Sache,Male,admin@gmail.com,Software Developer Engineer,check pwd,9822898494,2024-12-24T17:21:28.793Z,2024-12-24T17:21:28.793Z,0
