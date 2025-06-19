@@ -1,10 +1,10 @@
 const User = require("../models/user");
 const Credential = require("../models/credential");
 const Profile = require("../models/profile");
-const {logInErrors} = require("../middlewares/errorLogger")
+const { logInErrors } = require("../middlewares/errorLogger");
 
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 async function handleGetAllUsers(req, res) {
   const allUsers = await User.find({});
@@ -29,46 +29,62 @@ async function handleUserSignup(req, res) {
   const body = req.body;
   console.log(`User Signup Handler Invoked...`);
 
-  if (
-    !body ||
-    !body.email ||
-    !body.password ||
-    !body.contactNumber
-  ) {
+  if (!body || !body.email || !body.password || !body.contactNumber) {
     return res.status(400).json({ msg: "All fields are required..." });
   }
 
-  try{
-
-    let userExist = await User.findOne({ $or: [{ email: body.email }, { contactNumber: body.contactNumbert }] });
-    if (userExist!=null) 
-      { 
-        throw new Error('User already exists'); 
-      }
+  try {
+    let userExist = await User.findOne({
+      $or: [{ email: body.email }, { contactNumber: body.contactNumbert }],
+    });
+    if (userExist != null) {
+      throw new Error("User already exists");
     }
-    catch (error) 
-    { 
-      console.error('Error checking user:', error.message); 
-      logInErrors(error.message);
-      return res.status(400).json({ msg: error.message}); // Error occurred
-    }
-  
-   let result = await User.create({
-    email: body.email,
-    contactNumber: body.contactNumber,
-  });
+  } catch (error) {
+    console.error("Error checking user:", error.message);
+    logInErrors(error.message);
+    return res.status(400).json({ msg: error.message }); // Error occurred
+  }
 
-  result = await Credential.create({
-    password: body.password,
-    userId : result.id
-  });
-  
-  console.log(result);
-  return res.status(201).json({ msg: `success ${result.id}` });
+  try {
+    const user = await User.create({
+      email: body.email,
+      contactNumber: body.contactNumber,
+    });
+
+    const hashedPwd = await bcrypt.hash(body.password, 10);
+    await Credential.create({
+      userId: user._id,
+      password: hashedPwd,
+    });
+
+    const profile = await Profile.create({
+      userId: user._id,
+    });
+
+    user.profileId = profile._id;
+    await user.save();
+
+    let token = jwt.sign(
+                        { id: user._Id }
+                        ,process.env.JWT_SECRET
+                        ,{expiresIn: '1h'});
+
+    console.log(user);
+    
+    return res.status(201).json({
+      message: `success ${user.id}`,
+      jwtoken: `Bearer ${token}`,
+    });
+
+  } catch (error) {
+    console.error("Error creating user:", error.message);
+    logInErrors(error.message);
+    return res.status(500).json({ msg: "Internal Server Error" });
+  }
 }
 
 async function handleUpdateUserById(req, res) {
-
   const user = await User.findByIdAndUpdate(req.params.id, {
     password: "#MechanicalDilSe",
     job_type: "Mechanical Engineer",
@@ -78,16 +94,16 @@ async function handleUpdateUserById(req, res) {
 }
 
 async function handleUserLogin(req, res) {
-    const {email,password} = req.body;
-    console.log(`User Login Handler Invoked for ${email}...`);
-    const user = await User.findOne({email, password});
-    if (!user) {
-        console.log("User not found");
-        return res.status(404).json({ error: "user not found" });
-    }
-    // console.log("User found:", user);
-    console.log(`User found: ${email}`);
-    return res.json(user);
+  const { email, password } = req.body;
+  console.log(`User Login Handler Invoked for ${email}...`);
+  const user = await User.findOne({ email, password });
+  if (!user) {
+    console.log("User not found");
+    return res.status(404).json({ error: "user not found" });
+  }
+  // console.log("User found:", user);
+  console.log(`User found: ${email}`);
+  return res.json(user);
 }
 
 module.exports = {

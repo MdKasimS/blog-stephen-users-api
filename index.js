@@ -8,6 +8,7 @@ const app = express()
 
 const PORT = 8004;
 
+require("dotenv").config();
 
 app.set("view engine","ejs");
 

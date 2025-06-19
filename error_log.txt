@@ -6,3 +6,16 @@
 1750357693319: username is not defined:
 1750357892823: User already exists:
 1750357977219: username is not defined:
+1750358983836: User already exists:
+1750359051064: user is not defined:
+1750359058566: User already exists:
+1750359070299: User already exists:
+1750359332191: User already exists:
+1750360221104: result is not defined:
+1750360559721: E11000 duplicate key error collection: blog-stephen-grider.users index: contact_number_1 dup key: { contact_number: null }:
+1750360610182: E11000 duplicate key error collection: blog-stephen-grider.users index: contact_number_1 dup key: { contact_number: null }:
+1750360668760: E11000 duplicate key error collection: blog-stephen-grider.users index: contact_number_1 dup key: { contact_number: null }:
+1750360809314: E11000 duplicate key error collection: blog-stephen-grider.users index: contact_number_1 dup key: { contact_number: null }:
+1750360886216: E11000 duplicate key error collection: blog-stephen-grider.credentials index: user_id_1 dup key: { user_id: null }:
+1750360963419: User already exists:
+1750360994418: E11000 duplicate key error collection: blog-stephen-grider.profiles index: userName_1 dup key: { userName: null }:
