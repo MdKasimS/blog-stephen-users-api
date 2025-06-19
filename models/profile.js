@@ -1,19 +1,27 @@
 const mongoose= require('mongoose');
 
 const profileSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    first_name:{
-        type: String,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', 
         required: true 
     },
-    last_name:{
+    firstName:{
         type: String,
-        required: true 
+        required: false,
     },
-    username: String,
+    lastName:{
+        type: String,
+        required: false,
+    },
+    userName: {
+        type: String,
+        required: false,
+        unique: true
+    },
     gender:{
         type: String,
-        required: true 
+        required: false, 
     },
     }, { timestamps: true});  
 
