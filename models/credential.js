@@ -1,11 +1,14 @@
 const mongoose= require('mongoose');
 
-const credSchema = new mongoose.Schema({
+const credentialSchema = new mongoose.Schema({
 
-    user_id :{
-        type : String,
-        unique: true
+   userId: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', 
+        required: true, 
+        unique: true 
     },
+
     password:{
         type: String,
         required: true
@@ -13,6 +16,9 @@ const credSchema = new mongoose.Schema({
 
 }, { timestamps: true});  
 
-const Credential = mongoose.model("credential", credSchema);
+const Credential = mongoose.model("credential", credentialSchema);
 
 module.exports = Credential;  
+
+// This code defines a Mongoose schema and model for user credentials in a MongoDB database.
+// The `credSchema` includes fields for the user's ID (referencing the User model)
