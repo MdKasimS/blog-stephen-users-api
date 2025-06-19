@@ -1,6 +1,10 @@
 const User = require("../models/user");
 const Credential = require("../models/credential");
-const {logInErrors} = require("../middlewares/logger")
+const Profile = require("../models/profile");
+const {logInErrors} = require("../middlewares/errorLogger")
+
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 async function handleGetAllUsers(req, res) {
   const allUsers = await User.find({});
@@ -27,20 +31,16 @@ async function handleUserSignup(req, res) {
 
   if (
     !body ||
-    !body.first_name ||
-    !body.last_name ||
-    !body.gender ||
     !body.email ||
-    !body.job_type ||
     !body.password ||
-    !body.contact_number
+    !body.contactNumber
   ) {
     return res.status(400).json({ msg: "All fields are required..." });
   }
 
   try{
 
-    let userExist = await User.findOne({ $or: [{ email: body.email }, { contact_number: body.contact_numbert }] });
+    let userExist = await User.findOne({ $or: [{ email: body.email }, { contactNumber: body.contactNumbert }] });
     if (userExist!=null) 
       { 
         throw new Error('User already exists'); 
@@ -54,18 +54,13 @@ async function handleUserSignup(req, res) {
     }
   
    let result = await User.create({
-    first_name: body.first_name,
-    last_name: body.last_name,
-    gender: body.gender,
     email: body.email,
-    job_type: body.job_type,
-    password: body.password,
-    contact_number: body.contact_number,
+    contactNumber: body.contactNumber,
   });
 
   result = await Credential.create({
     password: body.password,
-    user_id : result.id
+    userId : result.id
   });
   
   console.log(result);
@@ -84,12 +79,14 @@ async function handleUpdateUserById(req, res) {
 
 async function handleUserLogin(req, res) {
     const {email,password} = req.body;
+    console.log(`User Login Handler Invoked for ${email}...`);
     const user = await User.findOne({email, password});
     if (!user) {
         console.log("User not found");
         return res.status(404).json({ error: "user not found" });
     }
-    console.log("User found:", user);
+    // console.log("User found:", user);
+    console.log(`User found: ${email}`);
     return res.json(user);
 }
 
@@ -101,3 +98,10 @@ module.exports = {
   handleUpdateUserById,
   handleUserLogin,
 };
+
+// 🧠 High-Level Registration Flow
+// - Validate user input.
+// - Create the user document (email, contact).
+// - Hash password → store in Credential with userId.
+// - Create profile (username, gender, etc.) linked by userId.
+// - Generate JWT and respond.

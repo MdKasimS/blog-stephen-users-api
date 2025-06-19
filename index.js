@@ -6,7 +6,7 @@ const staticRouter = require('./routers/staticRouter')
 const express = require('express')
 const app = express()
 
-const PORT = 8000;
+const PORT = 8004;
 
 
 app.set("view engine","ejs");
@@ -19,15 +19,15 @@ app.use(express.json());
 
 app.use(express.urlencoded({extended: false}));
 
-
-app.use("/api/users", userRouter);
-
-app.use("/api/login", staticRouter);
-
 app.use(logReqRes('log.txt'));
 
+app.use("/api/v1/users", userRouter);
+
+app.use("/api/v1/login", staticRouter);
+
+
 app.listen(PORT, ()=>{
-   console.log("Listening on Port 8000....");
+   console.log(`Listening on Port ${PORT}....`);
 });
 
 
