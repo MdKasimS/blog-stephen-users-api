@@ -12,7 +12,7 @@ the req and res objects to each route handler and middleware function.
 ------------------------------------------------------------------------------------------*/
 const router = express.Router();
 
-//Combined route - /api/users
+//Combined route - /api/v1/users
 router.route("/")
       .get(handleGetAllUsers)
       .post(handleUserSignup);
@@ -24,13 +24,11 @@ in this case, :id. The colon (:) signifies that id is a placeholder for a dynami
 The /:id part of the path indicates that the route includes a parameter named id. When a request is made to a path that matches /anything,
 the value of anything will be captured as the id parameter.
 ------------------------------------------------------------------------------------------*/
-router
-  .route("/:id")
-  .get(handleGetUserById)
-  .put((req, res) => {
-    return res.json({ status: "Task is pending" });
-  })
-  .patch(handleUpdateUserById)
-  .delete(handleDeleteUserById);
+router.route("/:id")
+      .get(handleGetUserById)
+      .put((req, res) => {
+            return res.json({ status: "Task is pending" });})
+      .patch(handleUpdateUserById)
+      .delete(handleDeleteUserById);
 
 module.exports = router;
