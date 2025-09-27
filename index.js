@@ -22,10 +22,12 @@ app.use(express.urlencoded({extended: false}));
 
 app.use(logReqRes('log.txt'));
 
+
+//Instead of routing done using attributes(or say annotation), in Express we are manually 
+// setting up the routes using app.use() method. 
 app.use("/api/v1/users", userRouter);
 
 app.use("/api/v1/login", staticRouter);
-
 
 app.listen(PORT, ()=>{
    console.log(`Listening on Port ${PORT}....`);
